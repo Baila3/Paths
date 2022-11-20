@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Node from './Node/Node'
+
 import './PathView.css'
 
 export default class PathView extends Component  {
@@ -12,26 +13,39 @@ export default class PathView extends Component  {
 
   componentDiMount() {
     const nodes = [];
-    for (let row = 0; row < 15; row++) {
+    for (let row = 0; row < 20; row++) {
       const currentRow = [];
       for (let col = 0; col < 50; col++) {
-        currentRow.push([]);
-      }
+        const currentNode = {
+          col,
+          row,
+        }
+        currentRow.push(currentNode);
+      } 
       nodes.push(currentRow);
     }
-    this.setState({nodes}) 
+    this.setState({nodes});
   }
+
   render() {
     const {nodes} = this.state;
-    console.log(nodes)
+    console.log(nodes);
+    
     return (
-      <div>
-        {nodes.map((row,rowIdx)=> { 
-          return <div>
-            {row.map((node, nodeIdx) => <Node/>)}
-          </div>
-        })}
-      </div>
+      <div className='grid'>
+        {nodes.map((row,rowIdx) => { 
+          return ( <div key={rowIdx}>
+            {row.map((node, nodeIdx) => { 
+              return ( 
+              <Node 
+              key={nodeIdx} 
+              isStart={true}></Node> 
+              )
+          })}
+         </div>
+        );
+       })}
+     </div>
     );
   }
 }
